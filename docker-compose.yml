@@ -1,0 +1,17 @@
+services:
+  flask-app:
+    build:
+      context: flask-app
+      dockerfile: Dockerfile
+    # No ports exposed!
+    # Flask is now only accessible internally
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - flask-app
+
